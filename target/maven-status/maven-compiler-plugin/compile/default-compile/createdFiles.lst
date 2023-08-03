@@ -1,0 +1,6 @@
+net\user\service\UserService.class
+net\user\controller\UserController.class
+net\user\repository\UserRepository.class
+net\user\SpringbootRApplication.class
+net\user\impl\UserServiceImpl.class
+net\user\entity\User.class
