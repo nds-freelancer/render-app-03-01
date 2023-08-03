@@ -1,7 +1,6 @@
 package net.user.service;
 
 import java.util.List;
-
 import net.user.entity.User;
 
 public interface UserService {
@@ -10,4 +9,6 @@ public interface UserService {
     User getUserById(Long userId);
 
     List<User> getAllUsers();
+    
+    User updateUser(User user);
 }

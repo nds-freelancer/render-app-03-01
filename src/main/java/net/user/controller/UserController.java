@@ -6,9 +6,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import lombok.AllArgsConstructor;
 import net.user.entity.User;
+import net.user.entity.UserDto;
 import net.user.service.UserService;
 
 @RestController
@@ -29,5 +31,15 @@ public class UserController {
     @RequestMapping("/token")
     public User getToken(){
         return userService.getUserById(1L);
+    }
+    
+    @GetMapping("/swap")
+    public String swapIdUsingQueryParam(@RequestParam String token) {
+    
+    	 User user = userService.getUserById(1L);
+    	 user.setUsername(token);
+         User updatedUser = userService.updateUser(user);
+    	
+        return "token: " + token;
     }
 }
