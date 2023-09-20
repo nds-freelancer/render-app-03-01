@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import lombok.AllArgsConstructor;
 import net.user.entity.User;
-import net.user.entity.UserDto;
 import net.user.service.UserService;
 
 @RestController
