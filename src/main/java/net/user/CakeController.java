@@ -28,8 +28,8 @@ public class CakeController {
 @Autowired
   private CakeService cakeService;
 
-@Autowired 
-private OrderCakeService orderCakeService;
+//@Autowired 
+//private OrderCakeService orderCakeService;
 
 
 	@GetMapping("/home")
@@ -113,35 +113,35 @@ public String contact(ModelMap model) {
 	return "contact";
 }
 	
-  @PostMapping("/save-order")
-  public String saveProduct(@ModelAttribute OrderDto orderDto,  Model model) {
-	  orderDto.setStatus("inprogress");
-	  
-	  System.out.println("Save1:"+orderDto.getCakename()+orderDto.getNumber()
-	  +orderDto.getCustomer()+orderDto.getAddress()+orderDto.getDateorder()+orderDto.getDateship());
-	  
-	  OrderCa orCa = new OrderCa();
-	  
-	  orCa.setCakeid(orderDto.getCakeid());
-	  orCa.setNumber(orderDto.getNumber());
-	  orCa.setCustomer(orderDto.getCustomer());
-	  orCa.setDatecreate(orderDto.getDateorder());
-	  orCa.setDateship(orderDto.getDateship());
-	  orCa.setPhone(orderDto.getPhone());
-	  orCa.setAddress(orderDto.getAddress());
-	  orCa.setStatus("0");
-	  orderCakeService.updateOrderCake(orCa);
-	  
-	  System.out.println("Save1:"+orderDto.getCakename()+orderDto.getNumber()
-	  +orderDto.getCustomer()+orderDto.getAddress()+orderDto.getDateorder()+orderDto.getDateship());
-	//List<CakeDto> listPro = cakeDao.listProduct(1);
-	// model.addAttribute("listPro",listPro);
-	OrderDto order = new OrderDto();
-	model.addAttribute("order",order);
-	model.addAttribute("msg","Thêm mới thành công! Chúng tôi sẽ liên hệ với "+orderDto.getCustomer()+" sớm theo sdt trên!");
-    return "service";
-  }
-  
+//  @PostMapping("/save-order")
+//  public String saveProduct(@ModelAttribute OrderDto orderDto,  Model model) {
+//	  orderDto.setStatus("inprogress");
+//	  
+//	  System.out.println("Save1:"+orderDto.getCakename()+orderDto.getNumber()
+//	  +orderDto.getCustomer()+orderDto.getAddress()+orderDto.getDateorder()+orderDto.getDateship());
+//	  
+//	  OrderCa orCa = new OrderCa();
+//	  
+//	  orCa.setCakeid(orderDto.getCakeid());
+//	  orCa.setNumber(orderDto.getNumber());
+//	  orCa.setCustomer(orderDto.getCustomer());
+//	  orCa.setDatecreate(orderDto.getDateorder());
+//	  orCa.setDateship(orderDto.getDateship());
+//	  orCa.setPhone(orderDto.getPhone());
+//	  orCa.setAddress(orderDto.getAddress());
+//	  orCa.setStatus("0");
+//	  orderCakeService.updateOrderCake(orCa);
+//	  
+//	  System.out.println("Save1:"+orderDto.getCakename()+orderDto.getNumber()
+//	  +orderDto.getCustomer()+orderDto.getAddress()+orderDto.getDateorder()+orderDto.getDateship());
+//	//List<CakeDto> listPro = cakeDao.listProduct(1);
+//	// model.addAttribute("listPro",listPro);
+//	OrderDto order = new OrderDto();
+//	model.addAttribute("order",order);
+//	model.addAttribute("msg","Thêm mới thành công! Chúng tôi sẽ liên hệ với "+orderDto.getCustomer()+" sớm theo sdt trên!");
+//    return "service";
+//  }
+//  
   @GetMapping("/import.html")
 	public String importProduct(ModelMap model) {
 		// List<CakeDto> listPro = cakeDao.listProduct(1);
@@ -150,48 +150,48 @@ public String contact(ModelMap model) {
 		model.addAttribute("cake",cake);
 		return "import";
 	}
-  	
-  @GetMapping(value = "/reloadOrderList")
-	public @ResponseBody byte[] reloadOrderList(String phone, String password) throws Exception {
-  		
-  		System.out.print(phone+":"+password);
-  		
-  		ObjectMapper objectMapper = new ObjectMapper();
-  		
-  		List<OrderCa> listOrderCa = orderCakeService.getAllOrderCake(phone);
-  		List<Cake> listCake = cakeService.getAllCakes();
-  		List<OrderCaView> listOcView = new ArrayList<OrderCaView>();
-  		
-  		for(int i=0; i< listOrderCa.size();i++) {
-  			OrderCaView caView = new OrderCaView();
-  			caView.setCakeid(listOrderCa.get(i).getCakeid());
-  			caView.setNumber(listOrderCa.get(i).getNumber());
-  			caView.setPhone(listOrderCa.get(i).getPhone());
-  			caView.setCustomer(listOrderCa.get(i).getCustomer());
-  			caView.setDateship(listOrderCa.get(i).getDateship());
-  			caView.setDatecreate(listOrderCa.get(i).getDatecreate());
- 			caView.setAddress(listOrderCa.get(i).getAddress());
-  			caView.setStatus(listOrderCa.get(i).getStatus());
-  			
-  			for(int j=0; j< listCake.size();j++) {
-  				if(listOrderCa.get(i).getCakeid() == listCake.get(j).getCakeid())
-  					caView.setCakename(listCake.get(j).getCakename());
-  			}
-  			
-  			if(listOrderCa.get(i).getStatus().equals("1")) {
-  				caView.setStatusor("Da giao");
-  			}else {
-  				caView.setStatusor("Chua giao");
-  			}
-  			
-  			listOcView.add(caView);
-  		}
-  		
-  		ArrayNode listData = objectMapper.valueToTree(listOcView);
-  		byte[] byteText =listData.toString().getBytes(Charset.forName("UTF-8"));
-  		System.out.print("byteText:"+byteText);
-
-  		return byteText;
-}
+//  	
+//  @GetMapping(value = "/reloadOrderList")
+//	public @ResponseBody byte[] reloadOrderList(String phone, String password) throws Exception {
+//  		
+//  		System.out.print(phone+":"+password);
+//  		
+//  		ObjectMapper objectMapper = new ObjectMapper();
+//  		
+//  		List<OrderCa> listOrderCa = orderCakeService.getAllOrderCake(phone);
+//  		List<Cake> listCake = cakeService.getAllCakes();
+//  		List<OrderCaView> listOcView = new ArrayList<OrderCaView>();
+//  		
+//  		for(int i=0; i< listOrderCa.size();i++) {
+//  			OrderCaView caView = new OrderCaView();
+//  			caView.setCakeid(listOrderCa.get(i).getCakeid());
+//  			caView.setNumber(listOrderCa.get(i).getNumber());
+//  			caView.setPhone(listOrderCa.get(i).getPhone());
+//  			caView.setCustomer(listOrderCa.get(i).getCustomer());
+//  			caView.setDateship(listOrderCa.get(i).getDateship());
+//  			caView.setDatecreate(listOrderCa.get(i).getDatecreate());
+// 			caView.setAddress(listOrderCa.get(i).getAddress());
+//  			caView.setStatus(listOrderCa.get(i).getStatus());
+//  			
+//  			for(int j=0; j< listCake.size();j++) {
+//  				if(listOrderCa.get(i).getCakeid() == listCake.get(j).getCakeid())
+//  					caView.setCakename(listCake.get(j).getCakename());
+//  			}
+//  			
+//  			if(listOrderCa.get(i).getStatus().equals("1")) {
+//  				caView.setStatusor("Da giao");
+//  			}else {
+//  				caView.setStatusor("Chua giao");
+//  			}
+//  			
+//  			listOcView.add(caView);
+//  		}
+//  		
+//  		ArrayNode listData = objectMapper.valueToTree(listOcView);
+//  		byte[] byteText =listData.toString().getBytes(Charset.forName("UTF-8"));
+//  		System.out.print("byteText:"+byteText);
+//
+//  		return byteText;
+//}
   	
 }
